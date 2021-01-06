@@ -1,0 +1,6 @@
+#!/bin/sh
+
+# use the psql command line to run postgres commands inside the docker container
+
+
+docker-compose exec template-django-local sh -c "export PGPASSWORD=$POSTGRES_PASSWORD; psql -h $POSTGRES_HOST -U $POSTGRES_USER $POSTGRES_DB"

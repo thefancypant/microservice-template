@@ -1,0 +1,6 @@
+#!/bin/sh
+
+
+# use the pytest command line to run pytest commands inside the docker container
+
+docker-compose exec template-django-local sh -c "cd /code/application && pipenv run pytest $ARGS"

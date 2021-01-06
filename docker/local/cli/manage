@@ -1,0 +1,12 @@
+#!/bin/sh
+
+# Enabling to run manage.py commands in the container
+
+ARGS="$@"
+
+if [[-z $ARGS]]
+then
+    ARGS="help"
+fi
+
+docker-compose exec template-django-local sh -c "cd /code/application && pipenv run python manage.py $ARGS"

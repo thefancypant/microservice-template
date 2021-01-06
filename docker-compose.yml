@@ -1,0 +1,37 @@
+version: '3.9'
+
+services:
+
+  template-redis-local:
+    restart: always
+    image: redis
+
+  template-postgres-local:
+    restart: always
+    image: postgres
+    env_file:
+      - .env
+    volumes:
+      - ./docker/local/postgres/data:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+
+  template-django-local:
+    restart: always
+    image: template-django-local
+    build:
+      context: .
+      dockerfile: ./docker/local/django/Dockerfile
+    env_file:
+      - .env
+    volumes:
+      - .:/code
+    ports:
+      - 8000:8000
+    links:
+      - template-redis-local
+      - template-postgres-local
+    depends_on:
+      - template-redis-local
+      - template-postgres-local
+    entrypoint: /code/docker/local/django/start.sh

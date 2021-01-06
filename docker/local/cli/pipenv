@@ -1,0 +1,7 @@
+#!/bin/sh
+
+# use pipenv to run pipenv commands inside the docker container
+
+ARGS="$@"
+
+docker-compose exec template-django-local sh -c "cd /code/application && pipenv $ARGS"
